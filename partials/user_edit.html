@@ -1,0 +1,53 @@
+<div class="modal_head">
+    <i class="icon_close" onclick="common.modal_hide()"></i>
+</div>
+<div class="modal_body">
+    <div class="input_group_modal">
+        <div>First name</div>
+        <input type="text" id="first_name" value="{$user.first_name}" onclick="common.remove_error(event);">
+        <div class="error_el"></div>
+    </div>
+    <div class="input_group_modal">
+        <div>Last name</div>
+        <input type="text" id="last_name" value="{$user.last_name}" onclick="common.remove_error(event);">
+        <div class="error_el"></div>
+    </div>
+    <div class="input_group_modal">
+        <div>Phone</div>
+        <input type="text" id="phone" value="{$user.phone}" onclick="common.remove_error(event);">
+        <div class="error_el"></div>
+    </div>
+    <div class="input_group_modal">
+        <div>Email</div>
+        <input type="email" id="email" value="{$user.email}" onclick="common.remove_error(event);">
+        <div class="error_el"></div>
+    </div>
+    <div class="input_group_modal multiple_field">
+        <div>Plots</div>
+        <select id="" onchange="common.add_item_to_multiple(event);">
+            <option class="default_option_el" value="">select one or multiple plots</option>
+            {section name=i loop=$user.plots}
+                <option class="{if $user.plots[i].exist === 1}not_active{/if}" value="{$user.plots[i].plot_id}">{$user.plots[i].plot_id}</option>
+            {/section}
+        </select>
+        <input type="hidden" id="plot_ids" value="{$user.exist_plots_str}">
+        <div class="selected_el_container">
+            {if empty($user.exist_plots_arr)}
+                <p class="no_selected">nothing selected</p>
+            {else}
+                <p class="no_selected not_active">nothing selected</p>
+            {/if}
+            {section name=i loop=$user.exist_plots_arr}
+                <i data-value="{$user.exist_plots_arr[i]}" onclick="common.remove_item_from_multiple(event);">{$user.exist_plots_arr[i]}</i>
+            {/section}
+        </div>
+    </div>
+    <div class="modal_controls">
+        <div>
+            <div class="btn_modal" onclick="common.user_edit_update({$user.id});">Save</div>
+        </div>
+        <div>
+            <div class="btn_modal light" onclick="common.modal_hide();">Cancel</div>
+        </div>
+    </div>
+</div>
